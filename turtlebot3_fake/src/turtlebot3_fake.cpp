@@ -17,6 +17,7 @@
 /* Authors: Yoonseok Pyo */
 
 #include <turtlebot3_fake/turtlebot3_fake.h>
+#include <turtlebot3_fake/WheelMsg.h>
 
 Turtlebot3Fake::Turtlebot3Fake()
 : nh_priv_("~")
@@ -107,15 +108,12 @@ bool Turtlebot3Fake::init()
 /*******************************************************************************
 * Callback function for cmd_vel msg
 *******************************************************************************/
-void Turtlebot3Fake::commandVelocityCallback(const geometry_msgs::TwistConstPtr cmd_vel_msg)
+void Turtlebot3Fake::commandVelocityCallback(const turtlebot3_fake::WheelMsg &WheelMsg)
 {
   last_cmd_vel_time_ = ros::Time::now();
 
-  goal_linear_velocity_  = cmd_vel_msg->linear.x;
-  goal_angular_velocity_ = cmd_vel_msg->angular.z;
-
-  wheel_speed_cmd_[LEFT]  = goal_linear_velocity_ - (goal_angular_velocity_ * wheel_seperation_ / 2);
-  wheel_speed_cmd_[RIGHT] = goal_linear_velocity_ + (goal_angular_velocity_ * wheel_seperation_ / 2);
+  wheel_speed_cmd_[LEFT] = WheelMsg.left_wheel;
+  wheel_speed_cmd_[RIGHT] = WheelMsg.right_wheel;
 }
 
 /*******************************************************************************

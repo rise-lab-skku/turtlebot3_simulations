@@ -33,6 +33,7 @@
 #include <nav_msgs/Odometry.h>
 
 #include <turtlebot3_msgs/SensorState.h>
+#include <turtlebot3_fake/WheelMsg.h>
 
 #include "turtlebot3_fake.h"
 
@@ -105,7 +106,7 @@ class Turtlebot3Fake
   double robot_radius_;
 
   // Function prototypes
-  void commandVelocityCallback(const geometry_msgs::TwistConstPtr cmd_vel_msg);
+  void commandVelocityCallback(const turtlebot3_fake::WheelMsg &WheelMsg);
   bool updateOdometry(ros::Duration diff_time);
   void updateJoint(void);
   void updateTF(geometry_msgs::TransformStamped& odom_tf);

@@ -16,6 +16,17 @@ find_package(catkin REQUIRED COMPONENTS
   nav_msgs
   tf
   turtlebot3_msgs
+  message_generation
+)
+
+add_message_files(
+  FILES
+  WheelMsg.msg
+)
+
+generate_messages(
+  DEPENDENCIES
+  std_msgs
 )
 
 ################################################################################
@@ -47,7 +58,11 @@ include_directories(
 )
 
 add_executable(turtlebot3_fake_node src/turtlebot3_fake.cpp)
-add_dependencies(turtlebot3_fake_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(turtlebot3_fake_node
+  ${${PROJECT_NAME}_EXPORTED_TARGETS}
+  ${catkin_EXPORTED_TARGETS}
+  turtlebot3_fake_generate_messages_cpp
+)
 target_link_libraries(turtlebot3_fake_node ${catkin_LIBRARIES})
 
 ################################################################################
